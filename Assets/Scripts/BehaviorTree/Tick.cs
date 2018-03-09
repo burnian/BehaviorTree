@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
-    class Tick
+    public class Tick
     {
-        public Tick()
+        public Tick(BehaviorTree tree, Agent agent, Blackboard blackboard, IDebugger debug)
         {
-            openNodes = new List<BaseNode>();
+            this.tree = tree;
+            this.openNodes = new List<BaseNode>();
+            this.target = agent;
+            this.blackboard = blackboard;
+            this.debug = debug;
         }
 
-        // 聚焦
+        // 记录 RUNNING 的节点
         public void EnterNode(BaseNode node)
         {
             openNodes.Add(node);
@@ -30,7 +34,7 @@ namespace BehaviorTree
             // call debug here
         }
 
-        // 关闭
+        // 移除非 RUNNING 的节点
         public void CloseNode(BaseNode node)
         {
             // call debug here
@@ -44,10 +48,10 @@ namespace BehaviorTree
         }
 
 
-        public Tree tree;
+        public BehaviorTree tree;
         public List<BaseNode> openNodes;
-        //public object debug;
-        public object target;
+        public IDebugger debug;
+        public Agent target;
         public Blackboard blackboard;
     }
 }

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     // 相当于“或”操作，所有节点都失败才返回失败，遇到非失败就返回
     class Priority : BaseNode
     {
+        public Priority(IEnumerable<BaseNode> branch = null) : base(branch)
+        {
+        }
+
         override public void Enter(Tick tick) { }
 
         override public void Open(Tick tick) { }

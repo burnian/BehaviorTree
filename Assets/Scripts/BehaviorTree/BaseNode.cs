@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
-    abstract class BaseNode
+    public abstract class BaseNode
     {
         public BaseNode(IEnumerable<BaseNode> branch = null)
         {
@@ -22,6 +22,11 @@ namespace BehaviorTree
             children.Add(node);
         }
 
+        //public void RemoveAllChild(BaseNode node)
+        //{
+        //    children = new List<BaseNode>();
+        //}
+
         //public void RemoveChild(BaseNode node)
         //{
         //    children.Remove(node);
@@ -33,7 +38,8 @@ namespace BehaviorTree
             _Enter(tick);
 
             // 开启
-            bool isOpen = (bool)(tick.blackboard.Get("isOpen", tick.tree.id, id));
+            object temp = tick.blackboard.Get("isOpen", tick.tree.id, id);
+            bool isOpen = temp == null ? false : (bool)temp;
             if (!isOpen)
             {
                 _Open(tick);
@@ -41,8 +47,9 @@ namespace BehaviorTree
 
             // 主逻辑
             NODE_STATE state = _Tick(tick);
+            tick.debug.Log(this.ToString(), state.ToString());
 
-            // 关闭
+            // 只有当某节点的主逻辑执行完后，状态不为 RUNNING，才 close
             if (state != NODE_STATE.RUNNING)
             {
                 _Close(tick);
@@ -63,7 +70,7 @@ namespace BehaviorTree
         private void _Open(Tick tick)
         {
             tick.OpenNode(this);
-            tick.blackboard.Set("isOpen", true, tick.tree.id, this.id);
+            tick.blackboard.Set("isOpen", true, tick.tree.id, id);
             Open(tick);
         }
 
@@ -76,12 +83,13 @@ namespace BehaviorTree
         private void _Close(Tick tick)
         {
             tick.CloseNode(this);
+            tick.blackboard.Set("isOpen", false, tick.tree.id, id);
             Close(tick);
         }
 
         private void _Exit(Tick tick)
         {
-            tick.EnterNode(this);
+            tick.ExitNode(this);
             Exit(tick);
         }
 

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     // 将 leaf node 返回的状态取反
     class Inverter : BaseNode
     {
+        public Inverter(IEnumerable<BaseNode> children = null) : base(children) { }
+
         override public void Enter(Tick tick) { }
 
         override public void Open(Tick tick) { }

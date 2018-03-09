@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     // “或”操作，某节点执行成功才返回该节点状态，下次从 runningChild 记录的该节点开始执行
     class MemPriority : BaseNode
     {
+        public MemPriority(IEnumerable<BaseNode> branch = null) : base(branch)
+        {
+        }
+
         override public void Enter(Tick tick) { }
 
         override public void Open(Tick tick)
@@ -16,7 +20,9 @@ namespace BehaviorTree
 
         override public NODE_STATE Tick(Tick tick)
         {
-            int runningIdx = (int)(tick.blackboard.Get("runningChild", tick.tree.id, id));
+            object temp = tick.blackboard.Get("runningChild", tick.tree.id, id);
+            int runningIdx = temp == null ? 0 : (int)temp;
+
             for (int i = runningIdx; i < children.Count; i++)
             {
                 NODE_STATE state = children[i].Execute(tick);

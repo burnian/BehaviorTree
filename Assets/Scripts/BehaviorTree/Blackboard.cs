@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     using MemoryType = Dictionary<string, object>;
 
     // Blackboard 保存某一个agent的全局信息和每个节点信息
-    class Blackboard
+    public class Blackboard
     {
         public Blackboard()
         {
@@ -59,7 +59,7 @@ namespace BehaviorTree
 
         public void Set(string key, object value, string treeID = null, string nodeID = null)
         {
-            _getMemory(treeID, nodeID).Add(key, value);
+            _getMemory(treeID, nodeID)[key] = value;
         }
 
         public object Get(string key, string treeID = null, string nodeID = null)

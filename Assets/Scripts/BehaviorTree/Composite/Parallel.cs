@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     // 把所有子节点的逻辑都执行一遍，统计成功数和失败数
     class Parallel : BaseNode

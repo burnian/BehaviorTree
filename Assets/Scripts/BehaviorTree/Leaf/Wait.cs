@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     // 将 tick 时经过的时间与指定时长比较来决定返回的状态
     class Wait : BaseNode
     {
-        public Wait(double milliseconds) : base()
+        public Wait(double milliseconds)
         {
             _waitTime = milliseconds;
         }
@@ -16,13 +16,16 @@ namespace BehaviorTree
 
         override public void Open(Tick tick)
         {
+            //tick.debug.Log("Wait", "Open");
             tick.blackboard.Set("startTime", DateTime.Now, tick.tree.id, id);
         }
 
         override public NODE_STATE Tick(Tick tick)
         {
-            DateTime startTime = (DateTime)(tick.blackboard.Get("startTime", tick.tree.id, id));
+            object temp = tick.blackboard.Get("startTime", tick.tree.id, id);
+            DateTime startTime = temp == null ? DateTime.Now : (DateTime)(temp);
             double elapseTime = (DateTime.Now - startTime).TotalMilliseconds;
+            tick.debug.Log("Wait", "startTime=" + startTime + " elapseTime=" + elapseTime + " waitTime=" + _waitTime);
             if (elapseTime > _waitTime)
             {
                 return NODE_STATE.SUCCESS;

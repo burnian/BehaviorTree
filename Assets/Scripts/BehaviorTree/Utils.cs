@@ -2,10 +2,10 @@
 using System.Text;
 
 
-namespace BehaviorTree
+namespace IBehaviorTree
 {
     // 节点状态
-    enum NODE_STATE : byte
+    public enum NODE_STATE : byte
     {
         SUCCESS = 1,
         FAILURE,
