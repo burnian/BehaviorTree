@@ -2,30 +2,36 @@
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
+using IBehaviorTree;
 
 
-namespace IBehaviorTree
+public class Debugger : IDebugger
 {
-    public class Debugger : IDebugger
+    override public void EnableLog(bool flag)
     {
-        override public void EnableLog(bool flag)
-        {
-            _isEnabled = flag;
-        }
+        _isEnabled = flag;
+    }
 
-        override public void Log(string message)
+    override public void Log(string message)
+    {
+        if (!_isEnabled)
         {
-            Debug.Log(message);
+            return;
         }
+        Debug.Log(message);
+    }
 
-        override public void Log(string tag, string message)
+    override public void Log(string tag, string message)
+    {
+        if (!_isEnabled)
         {
-            StringBuilder builder = new StringBuilder();
-            builder.Append("[");
-            builder.Append(tag);
-            builder.Append("] ");
-            builder.Append(message);
-            Debug.Log(builder);
+            return;
         }
+        StringBuilder builder = new StringBuilder();
+        builder.Append("[");
+        builder.Append(tag);
+        builder.Append("] ");
+        builder.Append(message);
+        Debug.Log(builder);
     }
 }

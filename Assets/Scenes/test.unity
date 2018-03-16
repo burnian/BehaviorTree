@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 1227525183}
   - component: {fileID: 1227525182}
   - component: {fileID: 1227525181}
+  - component: {fileID: 1227525185}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -328,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664eb37b85d4ca04c9d61e39bfdea7c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  enableDebug: 0
 --- !u!114 &1227525182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +369,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1227525179}
+--- !u!95 &1227525185
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1227525179}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 007bf2027f771bd409cf5b10000bebd6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1234655831
 GameObject:
   m_ObjectHideFlags: 0
