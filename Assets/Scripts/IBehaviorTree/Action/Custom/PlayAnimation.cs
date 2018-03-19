@@ -18,7 +18,7 @@ namespace IBehaviorTree
 
         override public void Open(Tick tick)
         {
-            GameObject go = (GameObject)tick.target;
+            GameObject go = (GameObject)tick.agent;
             var animator = go.GetComponent<Animator>();
             if (animator == null)
             {
@@ -26,7 +26,7 @@ namespace IBehaviorTree
                 return;
             }
 
-            VoidDelegate dispose = null;
+            Action dispose = null;
             //dispose = EventManager.Instance.AddEventListener("PlayAnimation", (args) =>
             //{
             //    _state = NODE_STATE.SUCCESS;

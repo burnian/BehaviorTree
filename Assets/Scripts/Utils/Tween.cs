@@ -1,4 +1,9 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////
+/// Author: Burnian
+/// Date: 2018-3-19
+/// Description: 缓动算法
+//////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 
 
@@ -27,6 +32,7 @@ namespace Utils
             END
         }
 
+        public static Tween Instance;
         public static void Init()
         {
             Instance = new Tween();
@@ -41,18 +47,18 @@ namespace Utils
             //_dic.Add(Ease.Sin_In_Out, Sin_In_Out);
         }
 
-        // @param
-        // time 当前时间戳
-        // start 属性初始值
-        // delta 属性变化量
-        // ttime 变化总时间
+        /// <summary>
+        /// <param name="time">当前时间戳</param>
+        /// <param name="start">属性初始值</param>
+        /// <param name="delta">属性变化量</param>
+        /// <param name="ttime">变化总时间</param>
+        /// </summary>
         public double Linear(double time, double start, double delta, double ttime)
         {
             return start + delta * time / ttime;
         }
 
 
-        public static Tween Instance;
         Dictionary<Ease, EaseFunc> _dic;
     }
 }

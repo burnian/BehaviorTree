@@ -1,31 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using IBehaviorTree;
+﻿using IBehaviorTree;
 using Utils;
 
 
-public class HeroBehavior
+namespace Behaviors
 {
-    public HeroBehavior()
+    class HeroBehavior : Behavior
     {
-        // behaviors
-        blackboard = new Blackboard();
-        debug = new Debugger();
-        debug.EnableLog(enableDebug);
+        public static HeroBehavior Get()
+        {
+            _pool = new SimpleObjectPool<HeroBehavior>(GenerateTree, 5, DestroyTree);
+            return 
+        }
 
-        var root = new MemSequence(new BaseNode[] {
-            new Wait(5000),
-            //new PlayAnimation("move_forward_B"),
-            //new Wait(500),
-            //new PlayAnimation("move_backward_B"),
-        });
-        behaviorTree = new BehaviorTree(root);
+        HeroBehavior GenerateTree()
+        {
+            var obj = new HeroBehavior();
+            var root = new MemSequence(new BaseNode[] {
+                new Wait(5000),
+            });
+            obj.behaviorTree = new BehaviorTree(root);
+            return obj;
+        }
+
+        private void DestroyTree(Behavior behavior)
+        {
+
+        }
+
+        SimpleObjectPool<HeroBehavior> _pool;
     }
-
-
-    public bool enableDebug = true;
-    public Blackboard blackboard;
-    public Debugger debug;
-    public BehaviorTree behaviorTree;
 }

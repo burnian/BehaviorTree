@@ -12,8 +12,8 @@ namespace IBehaviorTree
         }
 
         abstract public void EnableLog(bool flag);
-        abstract public void Log(string message);
-        abstract public void Log(string tag, string message);
+        abstract public void BTLog(string message);
+        abstract public void BTLog(string tag, string message);
 
         protected bool _isEnabled;
     }

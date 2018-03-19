@@ -4,13 +4,16 @@ using System.Collections.Generic;
 
 namespace IBehaviorTree
 {
+    /// <summary>
+    /// 其本质是上下文
+    /// </summary>
     public class Tick
     {
-        public Tick(BehaviorTree tree, object target, Blackboard blackboard, IDebugger debug)
+        public Tick(BehaviorTree tree, object agent, Blackboard blackboard, IDebugger debug)
         {
             this.tree = tree;
             this.openNodes = new List<BaseNode>();
-            this.target = target;
+            this.agent = agent;
             this.blackboard = blackboard;
             this.debug = debug;
         }
@@ -51,7 +54,7 @@ namespace IBehaviorTree
         public BehaviorTree tree;
         public List<BaseNode> openNodes;
         public IDebugger debug;
-        public object target;
+        public object agent;
         public Blackboard blackboard;
     }
 }

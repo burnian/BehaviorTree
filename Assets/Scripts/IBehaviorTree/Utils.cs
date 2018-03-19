@@ -15,7 +15,7 @@ namespace IBehaviorTree
 
     class Utils
     {
-        readonly public static Random RandomDelegate = new Random();
+        readonly public static Random RandomAgent = new Random();
 
         // 构造一个全局唯一ID
         public static string CreateUUID()
@@ -24,7 +24,7 @@ namespace IBehaviorTree
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < 36; i++)
             {
-                sb.Append(hexDigits[RandomDelegate.Next(0, 16)]);
+                sb.Append(hexDigits[RandomAgent.Next(0, 16)]);
             }
             // bits 12-15 of the time_hi_and_version field to 0010
             sb[14] = '4';

@@ -24,7 +24,7 @@ namespace IBehaviorTree
         {
             var startTime = tick.blackboard.Get<DateTime>("startTime", tick.tree.id, id);
             double elapseTime = (DateTime.Now - startTime).TotalMilliseconds;
-            tick.debug.Log("Wait", "startTime=" + startTime + " elapseTime=" + elapseTime + " waitTime=" + _waitTime);
+            tick.debug.BTLog("Wait", "startTime=" + startTime + " elapseTime=" + elapseTime + " waitTime=" + _waitTime);
             if (elapseTime > _waitTime)
             {
                 return NODE_STATE.SUCCESS;

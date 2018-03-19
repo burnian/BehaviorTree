@@ -1,19 +1,23 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////
+/// Author: Burnian
+/// Date: 2018-3-19
+/// Description: 消息收发管理器
+//////////////////////////////////////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 
 
 namespace Utils
 {
-    using Listener = List<AnyDelegate>;
+    using Listener = List<AnyEvent>;
 
-
-    public delegate void VoidDelegate();
-    public delegate void AnyDelegate(params object[] args);
+    public delegate void AnyEvent(params object[] args);
 
 
     // 消息管理器
     public class EventManager
     {
+        public static EventManager Instance;
         public static void Init()
         {
             Instance = new EventManager();
@@ -23,8 +27,8 @@ namespace Utils
         {
             _listeners = new Dictionary<string, Listener>();
         }
-
-        public VoidDelegate AddEventListener(string eventName, AnyDelegate func)
+        
+        public Action AddEventListener(string eventName, AnyEvent func)
         {
             Listener listener = null;
             if (!_listeners.TryGetValue(eventName, out listener))
@@ -72,7 +76,6 @@ namespace Utils
         }
 
 
-        public static EventManager Instance;
         Dictionary<string, Listener> _listeners;
     }
 }

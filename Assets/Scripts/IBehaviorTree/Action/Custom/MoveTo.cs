@@ -21,7 +21,7 @@ namespace IBehaviorTree
 
         override public NODE_STATE Tick(Tick tick)
         {
-            GameObject go = (GameObject)tick.target;
+            GameObject go = (GameObject)tick.agent;
             if (go == null)
             {
                 return NODE_STATE.ERROR;
@@ -29,9 +29,9 @@ namespace IBehaviorTree
 
             var startTime = tick.blackboard.Get<DateTime>("startTime", tick.tree.id, id);
             double elapseTime = (DateTime.Now - startTime).TotalMilliseconds;
-            tick.debug.Log("MoveTo", "startTime=" + startTime + " elapseTime=" + elapseTime);
+            tick.debug.BTLog("MoveTo", "startTime=" + startTime + " elapseTime=" + elapseTime);
 
-            go.transform.localPosition = _pos;
+            //go.transform.localPosition = _pos;
 
             return NODE_STATE.SUCCESS;
         }

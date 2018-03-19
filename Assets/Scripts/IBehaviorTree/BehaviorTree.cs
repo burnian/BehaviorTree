@@ -19,8 +19,7 @@ namespace IBehaviorTree
             // 把当前树的整个节点逻辑刷一遍
             root.Execute(tick);
 
-            /* CLOSE NODES FROM LAST TICK, IF NEEDED
-              下面的所有代码做了一件事，把所有上一个 tick RUNNING 而当前 tick 没有 RUNNING 的节点再 Close 一遍。*/
+            // 下面的所有代码做了一件事，把所有上一个 tick RUNNING 而当前 tick 没有 RUNNING 的节点再 Close 一遍。
             var lastOpenNodes = blackboard.Get<List<BaseNode> >("openNodes", id);
             var currOpenNodes = tick.openNodes;
 

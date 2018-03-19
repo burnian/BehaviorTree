@@ -18,7 +18,7 @@ namespace IBehaviorTree
 
         override public NODE_STATE Tick(Tick tick)
         {
-            GameObject go = (GameObject)tick.target;
+            GameObject go = (GameObject)tick.agent;
             if (go == null)
             {
                 return NODE_STATE.ERROR;

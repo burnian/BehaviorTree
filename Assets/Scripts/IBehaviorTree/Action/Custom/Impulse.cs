@@ -14,9 +14,9 @@ namespace IBehaviorTree
 
         override public NODE_STATE Tick(Tick tick)
         {
-            tick.blackboard.Set();
+            //tick.blackboard.Set();
 
-            go.transform.localPosition = _pos;
+            //go.transform.localPosition = _pos;
 
             return NODE_STATE.SUCCESS;
         }

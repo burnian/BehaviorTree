@@ -46,7 +46,7 @@ namespace IBehaviorTree
 
             // 主逻辑
             NODE_STATE state = _Tick(tick);
-            tick.debug.Log(this.ToString(), state.ToString());
+            tick.debug.BTLog(this.ToString(), state.ToString());
 
             // 只有当某节点的主逻辑执行完后，状态不为 RUNNING，才 close
             if (state != NODE_STATE.RUNNING)
