@@ -73,6 +73,27 @@ namespace IBehaviorTree
             return (T)value;
         }
 
+        public void Remove(string treeID = null, string nodeID = null)
+        {
+            if (treeID != null && treeID != "")
+            {
+                if (nodeID != null && nodeID != "")
+                {
+                    MemoryType memory = _getTreeMemory(treeID);
+                    ((MemoryType)memory["nodeMemory"]).Remove(nodeID);
+                }
+                else
+                {
+                    _treeMemory.Remove(treeID);
+                }
+            }
+            else
+            {
+                _baseMemory = null;
+                _treeMemory = null;
+            }
+        }
+
         private MemoryType _baseMemory;
         private MemoryType _treeMemory;
     }

@@ -99,19 +99,21 @@
     <Compile Include="Assets\RPG Character Animation Pack\Elements\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
     <Compile Include="Assets\RPG Character Animation Pack\Elements\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
     <Compile Include="Assets\RPG Character Animation Pack\Elements\ImageEffects\Scripts\Triangles.cs" />
-    <Compile Include="Assets\Scripts\Behaviors\Behavior.cs" />
-    <Compile Include="Assets\Scripts\Behaviors\HeroBehavior.cs" />
-    <Compile Include="Assets\Scripts\Behaviors\MonsterBehavior.cs" />
-    <Compile Include="Assets\Scripts\Behaviors\NPCBehavior.cs" />
-    <Compile Include="Assets\Scripts\ChangeTextColor.cs" />
     <Compile Include="Assets\Scripts\Agent.cs" />
+    <Compile Include="Assets\Scripts\Attribute.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\Behavior.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\BehaviorManager.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\CustomAction\ChangePosition.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\CustomAction\Impulse.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\CustomAction\IsKeyDown.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\CustomAction\MoveTo.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\CustomAction\PlayAnimation.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\MoveBehavior.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\CastSkillBehavior.cs" />
+    <Compile Include="Assets\Scripts\Behaviors\NPCBehavior.cs" />
     <Compile Include="Assets\Scripts\Debugger.cs" />
     <Compile Include="Assets\Scripts\GameLogic.cs" />
-    <Compile Include="Assets\Scripts\IBehaviorTree\Action\Custom\ChangePosition.cs" />
-    <Compile Include="Assets\Scripts\IBehaviorTree\Action\Custom\Impulse.cs" />
-    <Compile Include="Assets\Scripts\IBehaviorTree\Action\Custom\IsKeyDown.cs" />
-    <Compile Include="Assets\Scripts\IBehaviorTree\Action\Custom\MoveTo.cs" />
-    <Compile Include="Assets\Scripts\IBehaviorTree\Action\Custom\PlayAnimation.cs" />
+    <Compile Include="Assets\Scripts\IBehaviorTree\Action\Condition.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Action\Error.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Action\Failer.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Action\Runner.cs" />
@@ -125,7 +127,6 @@
     <Compile Include="Assets\Scripts\IBehaviorTree\Composite\Parallel.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Composite\Priority.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Composite\Sequence.cs" />
-    <Compile Include="Assets\Scripts\IBehaviorTree\Decorator\Custom\Ease.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Decorator\Inverter.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Decorator\Repeater.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Decorator\RepeatUtilFailure.cs" />
@@ -133,10 +134,25 @@
     <Compile Include="Assets\Scripts\IBehaviorTree\IDebugger.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Tick.cs" />
     <Compile Include="Assets\Scripts\IBehaviorTree\Utils.cs" />
-    <Compile Include="Assets\Scripts\Behaviors\BehaviorManager.cs" />
+    <Compile Include="Assets\Scripts\Jobs\Job.cs" />
+    <Compile Include="Assets\Scripts\Jobs\Archer.cs" />
+    <Compile Include="Assets\Scripts\Jobs\Priest.cs" />
+    <Compile Include="Assets\Scripts\Jobs\Magician.cs" />
+    <Compile Include="Assets\Scripts\Jobs\Warrior.cs" />
+    <Compile Include="Assets\Scripts\Races\High\Devil.cs" />
+    <Compile Include="Assets\Scripts\Races\High\Angel.cs" />
+    <Compile Include="Assets\Scripts\Races\Low\Undersea.cs" />
+    <Compile Include="Assets\Scripts\Races\Low\Underground.cs" />
+    <Compile Include="Assets\Scripts\Races\Middle\Orc.cs" />
+    <Compile Include="Assets\Scripts\Races\Middle\Human.cs" />
+    <Compile Include="Assets\Scripts\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\Skills\Buff.cs" />
+    <Compile Include="Assets\Scripts\Skills\Skill.cs" />
+    <Compile Include="Assets\Scripts\Races\Race.cs" />
     <Compile Include="Assets\Scripts\Utils\EventManager.cs" />
     <Compile Include="Assets\Scripts\Utils\SimpleObjectPool.cs" />
     <Compile Include="Assets\Scripts\Utils\Tween.cs" />
+    <Compile Include="Assets\Scripts\Utils\Updatable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\RPG Character Animation Pack\Elements\ImageEffects\Shaders\BlendModesOverlay.shader" />
@@ -202,6 +218,7 @@
     <None Include="Assets\RPG Character Animation Pack\Elements\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
     <None Include="Assets\RPG Character Animation Pack\Elements\ImageEffects\Shaders\frag_ao.cginc" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

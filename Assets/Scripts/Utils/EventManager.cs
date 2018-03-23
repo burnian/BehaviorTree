@@ -69,6 +69,7 @@ namespace Utils
                 return;
             }
 
+            // 这里之所以要ToArray 一下，是为了复制一份listener，而不是对源数据进行操作，因为func 可能修改listener 的长度。
             foreach (var func in listener.ToArray())
             {
                 func(args);

@@ -10,11 +10,15 @@ using System.Collections.Generic;
 
 namespace Utils
 {
-    public class ISimpleObjectPool
+    public abstract class ISimpleObjectPool
     {
-        public static List<ISimpleObjectPool> pools = new List<ISimpleObjectPool>();
+        // 这就意味着元素类型和元素池是一一对应的
+        public static Dictionary<Type, ISimpleObjectPool> dicPool = new Dictionary<Type, ISimpleObjectPool>();
 
-        public virtual void Release() { }
+        public abstract void Release();
+        public abstract int GetIdleCount();
+        public abstract void CreateImmediate(uint uCreateNum);
+        public abstract IEnumerator CreateInCoroutine(uint uCreateNum, uint uNumPerFrame = 0);
     }
 
     public class SimpleObjectPool<T> : ISimpleObjectPool
@@ -27,7 +31,7 @@ namespace Utils
         /// <param name="objectDestroy">销毁方法</param>
         public SimpleObjectPool(Func<T> objectGenerator, int maxCount, Action<T> objectDestroyer)
         {
-            pools.Add(this);
+            dicPool[typeof(T)] = this;
             _objectGenerator = objectGenerator;
             _maxCount = maxCount;
             _objectDestroyer = objectDestroyer;
@@ -59,7 +63,7 @@ namespace Utils
         /// <summary>
         /// 获取空闲状态下的对象数量
         /// </summary>
-        public int GetIdleCount()
+        public override int GetIdleCount()
         {
             return _idleObjects.Count;
         }
@@ -69,9 +73,8 @@ namespace Utils
         /// 一帧直接创建某个数量的对象丢内存池里
         /// </summary>
         /// <param name="uCreateNum"></param>
-        public virtual void CreateImmediate(uint uCreateNum)
+        public override void CreateImmediate(uint uCreateNum)
         {
-            //创建器不为空，用创建器方法//
             for (int i = 0; i < uCreateNum; ++i)
             {
                 RecycleObject(Generator());
@@ -83,7 +86,7 @@ namespace Utils
         /// </summary>
         /// <param name="uCreateNum">创建的数量</param>
         /// <param name="uNumPerFrame">每帧创建的个数，0代表一帧完成</param>
-        public virtual IEnumerator CreateInCoroutine(uint uCreateNum, uint uNumPerFrame = 0)
+        public override IEnumerator CreateInCoroutine(uint uCreateNum, uint uNumPerFrame = 0)
         {
             if (0 == uNumPerFrame)
             {
@@ -91,12 +94,11 @@ namespace Utils
             }
             else
             {
-                //创建器不为空，用创建器方法//
                 for (int i = 0; i < uCreateNum; ++i)
                 {
                     RecycleObject(Generator());
 
-                    //每隔一定的数量，停一下//
+                    //每隔一定的数量，停一下
                     if (0 == i % uNumPerFrame)
                     {
                         yield return null;
@@ -139,7 +141,7 @@ namespace Utils
             //先加个判断日志，有可能会有重复RecycleObject的，后续流程都没问题就删掉吧//
             if (_idleObjects.Contains(item))
             {
-                //logger.error("SimpleObjectPool:RecycleObject->Repeat same item. "+item.ToString());
+                Debugger.Log("SimpleObjectPool:RecycleObject->Repeat same item. " + item.ToString());
                 return;
             }
 #endif

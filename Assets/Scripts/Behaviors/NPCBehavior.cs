@@ -1,11 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using IBehaviorTree;
+using Utils;
 
-namespace Assets.Scripts.Behaviors
+
+namespace Behaviors
 {
-    class NPCBehavior
+    class NPCBehavior : Behavior
     {
+        public NPCBehavior()
+        {
+            type = BEHAVIOR_TYPE.None;
+
+            var root = new MemSequence(new BaseNode[] {
+                new Wait(5000),
+            });
+            tree = new BehaviorTree(root);
+        }
     }
 }

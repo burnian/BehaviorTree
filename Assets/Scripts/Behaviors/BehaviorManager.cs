@@ -3,20 +3,20 @@
 /// Date: 2018-3-19
 /// Description: 行为实例管理器
 //////////////////////////////////////////////////////////////////////////
-using System.Collections.Generic;
+using UnityEngine;
 using IBehaviorTree;
 using Utils;
 
 
 namespace Behaviors
 {
-    public enum BehaviorType
+    public enum BEHAVIOR_TYPE
     {
-        Hero = 0,
-        Monster,
-        NPC,
+        CastSkill = 0,
+        Move,
+        Patrol,
 
-        END
+        None
     }
 
     public class BehaviorManager
@@ -29,26 +29,51 @@ namespace Behaviors
 
         public BehaviorManager()
         {
-            _blackboard = new Blackboard();
+            blackboard = new Blackboard();
+            // 所有新添加的行为都要在这里注册创建
+            CreateBehaviorPool<MoveBehavior>();
+            CreateBehaviorPool<CastSkillBehavior>(50);
         }
 
-
-        public Behavior GetBehavior(BehaviorType type)
+        public T GetBehavior<T>() where T : Behavior
         {
-            return _behaviorPool.GetObject();
-        }
-
-        public void Update()
-        {
-            foreach(var tree in _behaviorTrees)
+            ISimpleObjectPool pool;
+            if (!ISimpleObjectPool.dicPool.TryGetValue(typeof(T), out pool))
             {
-                tree.tick(agent, _blackboard, Debugger.Instance);
+                return null;
+            }
+            return ((SimpleObjectPool<T>)pool).GetObject();
+        }
 
+        public void RecycleBehavior<T>(T behavior) where T : Behavior
+        {
+            if (behavior == null)
+            {
+                return;
+            }
+
+            blackboard.Remove(behavior.tree.id);
+            ISimpleObjectPool pool;
+            if (ISimpleObjectPool.dicPool.TryGetValue(typeof(T), out pool))
+            {
+                ((SimpleObjectPool<T>)pool).RecycleObject(behavior);
             }
         }
 
+        public void ShowAllPoolIdleCount()
+        {
+            foreach(var pair in ISimpleObjectPool.dicPool)
+            {
+                Debug.Log(pair.Key.Name + " pool idle num = " + pair.Value.GetIdleCount());
+            }
+        }
 
-        Blackboard _blackboard;
+        void CreateBehaviorPool<T>(int count = 10) where T : new()
+        {
+            new SimpleObjectPool<T>(() => { return new T(); }, count, (T behavior) => { });
+        }
 
+
+        public Blackboard blackboard;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 using Behaviors;
@@ -7,28 +6,18 @@ using Behaviors;
 
 public class GameLogic : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
-        InitModules();
+        Debugger.Instance.EnableLog(false);
 
-        DoLogic();
+        InitModules();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // left
+        foreach(var v in Updatable.updatables)
         {
-            Debug.Log("left click.");
-        }
-
-        if (Input.GetMouseButtonDown(1)) // right
-        {
-            Debug.Log("right click.");
-        }
-
-        if (Input.GetMouseButtonDown(2)) // middle
-        {
-            Debug.Log("middle click.");
+            v.Update();
         }
     }
 
@@ -37,24 +26,7 @@ public class GameLogic : MonoBehaviour
         EventManager.Init();
         Tween.Init();
         BehaviorManager.Init();
+        SceneManager.Init();
     }
 
-    void DoLogic()
-    {
-        AssetBundle.LoadFromFile("Prefabs/Character");
-        OnHeroSpawn();
-        //OnMonsterSpawn();
-    }
-
-    void OnHeroSpawn()
-    {
-        int count = 2;
-        for (int i = 0; i < count; i++)
-        {
-            GameObject hero = new GameObject(); // GameObject.Instantiate<GameObject>(Character);
-            hero.name = "hero" + i.ToString();
-            var agent = hero.GetComponent<Agent>();
-            character.SetBehavior();
-        }
-    }
 }

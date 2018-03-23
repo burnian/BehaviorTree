@@ -1,11 +1,13 @@
-﻿using IBehaviorTree;
+﻿using System.Collections.Generic;
+using IBehaviorTree;
 using Utils;
 
 
 namespace Behaviors
 {
-    class Behavior
+    public class Behavior
     {
-        public BehaviorTree behaviorTree;
+        public BEHAVIOR_TYPE type;
+        public BehaviorTree tree;
     }
 }
