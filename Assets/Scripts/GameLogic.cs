@@ -13,11 +13,21 @@ public class GameLogic : MonoBehaviour
         InitModules();
     }
 
+    // 每个渲染帧更新，deltaTime不定
     void Update()
     {
         foreach(var v in Updatable.updatables)
         {
             v.Update();
+        }
+    }
+
+    // 定帧更新，deltaTime恒定
+    void FixedUpdate()
+    {
+        foreach (var v in Updatable.updatables)
+        {
+            v.FixedUpdate();
         }
     }
 

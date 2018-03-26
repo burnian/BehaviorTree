@@ -3,20 +3,22 @@ using UnityEngine;
 using Behaviors;
 using Races;
 using Jobs;
+using IBehaviorTree;
 
 
 public class Agent : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
-        _radius = GetComponent<RectTransform>().rect.width / 2;
+        //Debug.Log("Agent.name=" + name);
+        _cachedRb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (behavior != null)
+        if (behaviorTree != null)
         {
-            behavior.tree.tick(this, BehaviorManager.Instance.blackboard, Debugger.Instance);
+            behaviorTree.tree.tick(this, BehaviorManager.Instance.blackboard, Debugger.Instance);
         }
 
         if (attribute.health > 0)
@@ -24,16 +26,22 @@ public class Agent : MonoBehaviour
         }
     }
 
+    public void MoveTo(Vector3 pos)
+    {
+        SetBehavior<MoveBehavior>();
+        BehaviorManager.Instance.blackboard.Set("endPos", pos, tree.id);
+    }
+
     public void SetBehavior<T>() where T : Behavior
     {
         _behaviorRecycleDelegate();
-        behavior = BehaviorManager.Instance.GetBehavior<T>();
+        behaviorTree = BehaviorManager.Instance.GetBehavior<T>();
         _behaviorRecycleDelegate = () =>
         {
-            if (behavior != null)
+            if (behaviorTree != null)
             {
-                BehaviorManager.Instance.RecycleBehavior((T)behavior);
-                behavior = null;
+                BehaviorManager.Instance.RecycleBehavior((T)behaviorTree);
+                behaviorTree = null;
             }
         };
     }
@@ -72,19 +80,21 @@ public class Agent : MonoBehaviour
                     job = new Job();
                 }
                 _attribute = race.attribute + job.attribute;
+                _cachedRb.mass = _attribute.mass;
+                _cachedRb.drag = _attribute.drag;
             }
             return _attribute;
         }
     }
 
 
-    public float _radius;
-    public Behavior behavior;
-    public Race race; // race.GetType() == typeof(Human)
+    public BehaviorTree behaviorTree;
+    public Race race;
     public Job job;
-
-    bool _isDirty = true;
-    Action _behaviorRecycleDelegate = () => { };
     //public Level level;
     //public Equipment equipment;
+
+    Rigidbody2D _cachedRb;
+    bool _isDirty = true;
+    Action _behaviorRecycleDelegate = () => { };
 }

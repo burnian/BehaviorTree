@@ -8,7 +8,7 @@ namespace IBehaviorTree
     {
         public BehaviorTree(BaseNode root)
         {
-            this.id = Utils.CreateUUID();
+            this.id = BTUtils.CreateUUID();
             this.root = root;
         }
 

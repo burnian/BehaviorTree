@@ -10,15 +10,6 @@ using Utils;
 
 namespace Behaviors
 {
-    public enum BEHAVIOR_TYPE
-    {
-        CastSkill = 0,
-        Move,
-        Patrol,
-
-        None
-    }
-
     public class BehaviorManager
     {
         public static BehaviorManager Instance;
@@ -32,7 +23,7 @@ namespace Behaviors
             blackboard = new Blackboard();
             // 所有新添加的行为都要在这里注册创建
             CreateBehaviorPool<MoveBehavior>();
-            CreateBehaviorPool<CastSkillBehavior>(50);
+            CreateBehaviorPool<AttackBehavior>(50);
         }
 
         public T GetBehavior<T>() where T : Behavior

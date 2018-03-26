@@ -8,7 +8,7 @@ namespace IBehaviorTree
     {
         public BaseNode(IEnumerable<BaseNode> branch = null)
         {
-            id = Utils.CreateUUID();
+            id = BTUtils.CreateUUID();
 
             children = new List<BaseNode>();
             if (branch != null)
