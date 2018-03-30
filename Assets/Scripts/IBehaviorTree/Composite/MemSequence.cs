@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace IBehaviorTree
 {
     // “与”操作，某节点执行失败才返回该节点状态，下次从 runningChild 记录的该节点开始执行
-    class MemSequence : BaseNode
+    class MemSequence : Composite
     {
         public MemSequence(IEnumerable<BaseNode> branch = null) : base(branch)
         {

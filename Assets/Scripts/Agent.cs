@@ -4,6 +4,7 @@ using Behaviors;
 using Races;
 using Jobs;
 using IBehaviorTree;
+using Common;
 
 
 public class Agent : MonoBehaviour
@@ -16,9 +17,9 @@ public class Agent : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (behaviorTree != null)
+        if (behavior != null)
         {
-            behaviorTree.tree.tick(this, BehaviorManager.Instance.blackboard, Debugger.Instance);
+            behavior.tree.tick(this, BehaviorManager.Instance.blackboard, Debugger.Instance);
         }
 
         if (attribute.health > 0)
@@ -28,20 +29,19 @@ public class Agent : MonoBehaviour
 
     public void MoveTo(Vector3 pos)
     {
-        SetBehavior<MoveBehavior>();
-        BehaviorManager.Instance.blackboard.Set("endPos", pos, tree.id);
+        SetBehavior();
     }
 
-    public void SetBehavior<T>() where T : Behavior
+    public void SetBehavior(BehaviorTree tree)
     {
         _behaviorRecycleDelegate();
-        behaviorTree = BehaviorManager.Instance.GetBehavior<T>();
+        behavior = BehaviorManager.Instance.GetBehavior<T>();
         _behaviorRecycleDelegate = () =>
         {
-            if (behaviorTree != null)
+            if (behavior != null)
             {
-                BehaviorManager.Instance.RecycleBehavior((T)behaviorTree);
-                behaviorTree = null;
+                BehaviorManager.Instance.RecycleBehavior((T)behavior);
+                behavior = null;
             }
         };
     }
@@ -88,11 +88,13 @@ public class Agent : MonoBehaviour
     }
 
 
-    public BehaviorTree behaviorTree;
+    public Behavior behavior;
     public Race race;
     public Job job;
     //public Level level;
     //public Equipment equipment;
+
+    public Camp camp;
 
     Rigidbody2D _cachedRb;
     bool _isDirty = true;

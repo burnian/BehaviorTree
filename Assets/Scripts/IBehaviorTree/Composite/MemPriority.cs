@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace IBehaviorTree
 {
     // “或”操作，某节点执行成功才返回该节点状态，下次从 runningChild 记录的该节点开始执行
-    class MemPriority : BaseNode
+    class MemPriority : Composite
     {
         public MemPriority(IEnumerable<BaseNode> branch = null) : base(branch)
         {

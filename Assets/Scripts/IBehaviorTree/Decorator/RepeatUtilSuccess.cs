@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace IBehaviorTree
 {
-    class RepeatUtilSuccess : BaseNode
+    class RepeatUtilSuccess : Decorator
     {
         override public void Enter(Tick tick) { }
 

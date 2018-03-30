@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace IBehaviorTree
 {
-    class Error : BaseNode
+    class Error : Action
     {
         override public void Enter(Tick tick) { }
 

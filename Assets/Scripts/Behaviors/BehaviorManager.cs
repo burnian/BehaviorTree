@@ -22,8 +22,8 @@ namespace Behaviors
         {
             blackboard = new Blackboard();
             // 所有新添加的行为都要在这里注册创建
-            CreateBehaviorPool<MoveBehavior>();
-            CreateBehaviorPool<AttackBehavior>(50);
+            CreateBehaviorPool<Move>();
+            CreateBehaviorPool<Attack>();
         }
 
         public T GetBehavior<T>() where T : Behavior

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace IBehaviorTree
 {
     // 将 tick 时经过的时间与指定时长比较来决定返回的状态
-    class Wait : BaseNode
+    class Wait : Action
     {
         public Wait(double milliseconds)
         {

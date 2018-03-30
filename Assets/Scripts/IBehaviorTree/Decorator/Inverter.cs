@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace IBehaviorTree
 {
     // 将 action node 返回的状态取反
-    class Inverter : BaseNode
+    class Inverter : Decorator
     {
         public Inverter(IEnumerable<BaseNode> children = null) : base(children) { }
 

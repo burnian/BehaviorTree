@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace IBehaviorTree
 {
-    class Repeater : BaseNode
+    class Repeater : Decorator
     {
         public Repeater(int times)
         {

@@ -22,15 +22,20 @@ namespace IBehaviorTree
             children.Add(node);
         }
 
-        //public void RemoveAllChild(BaseNode node)
-        //{
-        //    children = new List<BaseNode>();
-        //}
+        public void InsertChild(int index, BaseNode node)
+        {
+            children.Insert(index, node);
+        }
 
-        //public void RemoveChild(BaseNode node)
-        //{
-        //    children.Remove(node);
-        //}
+        public void RemoveAllChild()
+        {
+            children.Clear();
+        }
+
+        public void RemoveChild(BaseNode node)
+        {
+            children.Remove(node);
+        }
 
         public NODE_STATE Execute(Tick tick)
         {

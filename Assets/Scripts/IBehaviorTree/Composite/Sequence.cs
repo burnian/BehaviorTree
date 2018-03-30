@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace IBehaviorTree
 {
     // “与”操作，所有 action node 都成功才返回成功，遇到非成功就返回
-    class Sequence : BaseNode
+    class Sequence : Composite
     {
         public Sequence(IEnumerable<BaseNode> branch = null) : base(branch)
         {
