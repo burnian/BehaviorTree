@@ -9,7 +9,7 @@ namespace Behaviors
     {
         public Attack()
         {
-            root = new Parallel(0, 0, new BaseNode[] {
+            root = new Parallel(new BaseNode[] {
                 new MemSequence(new BaseNode[] {
                     new ChangeColor(Color.red),
                     new Wait(500),

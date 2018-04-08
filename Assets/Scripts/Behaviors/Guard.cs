@@ -9,7 +9,7 @@ namespace Behaviors
     {
         public Guard()
         {
-            root = new Parallel(0, 0, new BaseNode[] {
+            root = new Parallel(new BaseNode[] {
                 new MemSequence(new BaseNode[] {
                     new ChangeColor(Color.yellow),
                     new Wait(500),

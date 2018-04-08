@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace IBehaviorTree
 {
     // 把所有子节点的逻辑都执行一遍，统计成功数和失败数
-    class Parallel : Composite
+    internal class Parallel : Composite
     {
-        public Parallel(int succCount, int failCount, IEnumerable<BaseNode> children = null) : base(children)
+        public Parallel(IEnumerable<BaseNode> children = null, int succCount = 0, int failCount = 0) : base(children)
         {
             _succCount = succCount;
             _failCount = failCount;

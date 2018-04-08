@@ -3,7 +3,6 @@ using UnityEngine;
 using Behaviors;
 using Races;
 using Jobs;
-using IBehaviorTree;
 using Common;
 
 
@@ -11,7 +10,6 @@ public class Agent : MonoBehaviour
 {
     void Awake()
     {
-        //Debug.Log("Agent.name=" + name);
         _cachedRb = GetComponent<Rigidbody2D>();
     }
 
@@ -19,7 +17,7 @@ public class Agent : MonoBehaviour
     {
         if (behavior != null)
         {
-            behavior.tree.tick(this, BehaviorManager.Instance.blackboard, Debugger.Instance);
+            _behavior.root.tick(this, BehaviorManager.Instance.blackboard, Debugger.Instance);
         }
 
         if (attribute.health > 0)
@@ -32,8 +30,17 @@ public class Agent : MonoBehaviour
         SetBehavior();
     }
 
-    public void SetBehavior(BehaviorTree tree)
+    public void SetBehavior(BaseNode node)
     {
+        //BehaviorManager.Instance.blackboard.Remove(_bt.id);
+        //if (behavior != null)
+        //{
+            
+        //    BehaviorManager.Instance.RecycleBehavior((T)behavior);
+        //    behavior = null;
+        //}
+        //_bt.root = node;
+
         _behaviorRecycleDelegate();
         behavior = BehaviorManager.Instance.GetBehavior<T>();
         _behaviorRecycleDelegate = () =>
@@ -96,7 +103,8 @@ public class Agent : MonoBehaviour
 
     public Camp camp;
 
+    Behavior _behavior;
     Rigidbody2D _cachedRb;
     bool _isDirty = true;
-    Action _behaviorRecycleDelegate = () => { };
+    System.Action _behaviorRecycleDelegate = () => { };
 }

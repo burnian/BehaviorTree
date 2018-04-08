@@ -22,8 +22,8 @@ namespace Behaviors
         {
             blackboard = new Blackboard();
             // 所有新添加的行为都要在这里注册创建
-            CreateBehaviorPool<Move>();
-            CreateBehaviorPool<Attack>();
+            //CreateBehaviorPool<Move>();
+            //CreateBehaviorPool<Attack>();
         }
 
         public T GetBehavior<T>() where T : Behavior
@@ -43,7 +43,7 @@ namespace Behaviors
                 return;
             }
 
-            blackboard.Remove(behavior.tree.id);
+            blackboard.Remove(behavior.root.id);
             ISimpleObjectPool pool;
             if (ISimpleObjectPool.dicPool.TryGetValue(typeof(T), out pool))
             {
@@ -59,12 +59,12 @@ namespace Behaviors
             }
         }
 
-        void CreateBehaviorPool<T>(int count = 10) where T : new()
-        {
-            new SimpleObjectPool<T>(() => { return new T(); }, count, (T behavior) => { });
-        }
+        //void CreateBehaviorPool<T>(int count = 10) where T : new()
+        //{
+        //    new SimpleObjectPool<T>(() => { return new T(); }, count, (T behavior) => { });
+        //}
 
-
+        
         public Blackboard blackboard;
     }
 }

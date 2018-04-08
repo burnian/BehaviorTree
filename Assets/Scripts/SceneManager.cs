@@ -11,7 +11,7 @@ using Behaviors;
 using Races;
 
 
-public class SceneManager : Updatable
+class SceneManager : Updatable
 {
     public static SceneManager Instance;
     public static void Init()
@@ -112,6 +112,16 @@ public class SceneManager : Updatable
         agent.SetRace<T>();
         agent.MoveTo(go.transform.parent.TransformPoint(100, 0, 0));
         campAgents[agent.camp].Add(agent);
+
+
+        var parallel = new Parallel(new BaseNode[] {
+            BehaviorManager.Instance.GetBehavior<Patrol>().root,
+            BehaviorManager.Instance.GetBehavior<Guard>().root,
+        });
+
+        BehaviorManager.Instance.RecycleBehavior(behavior);
+        
+        agent.SetBehavior(parallel);
 
         //go = NewCharacter();
         //go.name = typeof(T).Name;
